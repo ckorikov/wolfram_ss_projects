@@ -45,7 +45,7 @@ def process_list(report, link_to_list):
 def main():
     with open("README.MD", "w") as report:
         report.write(welcome_msg)
-        for year in reversed(range(2003, 2018)):
+        for year in reversed(range(2003, 2019)):
             link_to_list = "https://education.wolfram.com/summer/school/alumni/{}/".format(year)
             report.write("## [{}]({})\n\n".format(year, link_to_list))
             process_list(report, link_to_list)
