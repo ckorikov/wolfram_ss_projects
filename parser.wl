@@ -7,6 +7,7 @@ $yearFrom=2003;
 $yearTo=If[Length@$ScriptCommandLine>1,ToExpression@$ScriptCommandLine[[2]],First@DateList[]-1];
 $fileReadme="README.md";
 $fileDataset="dataset_wolfram_ss.json";
+$fileDatasetPackage="dataset_wolfram_ss.m";
 $textHeader="
 # Wolfram Summer School Projects
 
@@ -44,6 +45,7 @@ Export[$fileReadme,Prepend[md,$textHeader],"Table"];
 WriteString["stdout", "\nExtracting features from photos"]
 datasetWithFacialFeatures = Dataset@(generateDatasetRow/@Flatten[listDataStudentsPerYear,1])//Quiet;
 WriteString["stdout", "\nGenerating JSON..."]
-datasetWithFacialFeatures[All,{"Name","Age","Gender","Project","Url","PhotoLink"}][[-2]]
 Export[$fileDataset,datasetWithFacialFeatures[All,{"Name","Age","Gender","Project","Url","PhotoLink"}],"JSON"];
+WriteString["stdout", "\nGenerating Package..."]
+Export[$fileDatasetPackage,datasetWithFacialFeatures,"Package"]
 WriteString["stdout", "\nDone.\n"]
